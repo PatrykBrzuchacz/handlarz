@@ -1,0 +1,16 @@
+<!--<app-navbar></app-navbar>-->
+
+<div>
+  <div class="title">Handlarz+</div>
+  <div class="subtitle">system zarządzania sprzedażą</div>
+  <div class="grid-wrapper">
+    <div *ngFor="let tariff of tariffDto" class="col-sm-2 price-item">
+      <div class="d-flex justify-content-center flex-column">
+
+        <h5>{{tariff.type | uppercase}}</h5>
+        <span> <p class="money-type">zł</p> <p class="amount">{{tariff.amout}} <p class="per-time">/mo </p>  </span>
+      </div>
+    </div>
+
+  </div>
+</div>

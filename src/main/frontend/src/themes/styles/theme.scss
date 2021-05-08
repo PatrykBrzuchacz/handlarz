@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+@mixin my-custom-component-theme($theme) {
+  // Extract whichever individual palettes you need from the theme.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent); // Use mat-color to extract individual colors from a palette as necessary.
+
+  .my-individual-class {
+    background-color: mat-color($accent, 600);
+    opacity: 0.6 !important; //so, none can override it
+  }
+}
