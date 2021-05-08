@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+
+.navbar {
+  position: sticky;
+  width: 100%;
+  background-color: #e91e63;
+}
+
+.mat-stroked-button{
+  color: white;
+  font-size: x-large;
+}
+
