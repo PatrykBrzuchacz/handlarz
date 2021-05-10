@@ -1,0 +1,41 @@
+<form [formGroup]="registerForm"  class="d-flex flex-column justify-content-center align-items-center">
+  <mat-form-field>
+    <input matInput type="text"  formControlName="login" placeholder="Nazwa użytkownika">
+    <mat-error *ngIf="registerForm.controls['login'].hasError('required')">
+      Nazwa użytkownika jest <strong>wymagana</strong>
+    </mat-error>
+    <mat-error *ngIf="registerForm.controls['login'].hasError('minlength')">
+      Nazwa użytkownika jest  <strong>za krótka</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput type="password" name="password" formControlName="password" placeholder="Hasło" [type]="hidingPassword ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hidingPassword = !hidingPassword">{{hidingPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
+        Hasło jest <strong>wymagane</strong>
+      </mat-error>
+      <mat-error *ngIf="registerForm.controls['password'].hasError('minlength')">
+        Hasło jest <strong>za krótkie</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="password" name="passwordConfirm" formControlName="passwordConfirm" placeholder="Potwierdź hasło"
+        compare="password" [type]="hidingPasswordConfirm ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hidingPasswordConfirm= !hidingPasswordConfirm">{{hidingPasswordConfirm ?
+        'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="registerForm.controls['passwordConfirm'].hasError">
+        Hasła muszą być <strong>takie same</strong>
+      </mat-error>
+    </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text"  formControlName="nip" placeholder="NIP">
+    <mat-error *ngIf="registerForm.controls['nip'].hasError('required')">
+      NIP jest <strong>wymagany</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" class="mt-2" (click)="register()">Zarejestruj</button>
+</form>

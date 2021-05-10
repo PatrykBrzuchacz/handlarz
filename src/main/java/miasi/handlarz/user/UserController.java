@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> createRequest(@RequestBody UserCredentialsDto userCredentialsDto) {
-        securityUserService.createRequestToSignup(userCredentialsDto);
+        securityUserService.createUser(userCredentialsDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

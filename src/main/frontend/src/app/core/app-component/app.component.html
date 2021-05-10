@@ -1,4 +1,13 @@
-<router-outlet></router-outlet>
+<app-navbar></app-navbar>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <app-sidenav *ngIf="isUser()"></app-sidenav>
+    <app-sidenav-admin *ngIf="isAdmin()"></app-sidenav-admin>
+  </mat-drawer>
+  <mat-drawer-content [class.resize-width]="isLogged()">
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
 
 
 

@@ -104,6 +104,25 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.25</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>5.4.27.Final</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring5</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -111,6 +130,43 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>cz.habarta.typescript-generator</groupId>
+                <artifactId>typescript-generator-maven-plugin</artifactId>
+                <version>2.14.505</version>
+                <executions>
+                    <execution>
+                        <id>generate</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <jsonLibrary>jackson2</jsonLibrary>
+                            <classPatterns>
+                                <pattern>miasi.handlarz.**Dto</pattern>
+                                <pattern>miasi.handlarz.**Criteria</pattern>
+                                <pattern>miasi.handlarz.**.constants.**</pattern>
+                                <pattern>miasi.handlarz.dto.**</pattern>
+                            </classPatterns>
+                            <outputFile>src/main/frontend/src/app/core/api-models.ts</outputFile>
+                            <outputFileType>implementationFile</outputFileType>
+                            <outputKind>module</outputKind>
+                            <noFileComment>true</noFileComment>
+                            <mapEnum>asEnum</mapEnum>
+                            <nonConstEnums>true</nonConstEnums>
+                            <optionalProperties>all</optionalProperties>
+                            <sortDeclarations>true</sortDeclarations>
+                            <sortTypeDeclarations>true</sortTypeDeclarations>
+                            <customTypeMappings>
+                                <mapping>java.time.LocalDateTime:custom.LocalDateTime</mapping>
+                                <mapping>org.springframework.data.domain.Page:custom.Page</mapping>
+                                <mapping>java.lang.Class:any</mapping>
+                            </customTypeMappings>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

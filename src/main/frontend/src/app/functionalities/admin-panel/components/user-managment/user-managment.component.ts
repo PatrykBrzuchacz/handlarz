@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
-import {User} from '../../../../shared/model';
-import {UserService} from '../../../../shared/service/user.service';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { UserService } from '../../../../shared/service/user.service';
+import { UserDto } from '../../../../core/api-models';
+import { MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-user-managment',
@@ -9,10 +10,11 @@ import {UserService} from '../../../../shared/service/user.service';
   styleUrls: ['./user-managment.component.scss']
 })
 export class UserManagmentComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'username', 'zbanowany', 'akcje'];
-  displayedRequestColumns: string[] = ['username', 'status', 'fileName', 'PFApiId', 'proofOfWork', 'options'];
-  users: User[];
-  userRequests = [];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  displayedColumns: string[] = ['id', 'username', 'nip', 'active', 'requestStatus', 'actions'];
+  userDataSource = [];
+  RequestStatus = RequestStatus;
 
   constructor(private sanitizer: DomSanitizer,
               private userService: UserService) {
@@ -22,32 +24,31 @@ export class UserManagmentComponent implements OnInit {
     this.getUsersForAdm();
   }
 
-
   private getUsersForAdm() {
-    this.userService.getUsersForAdmin().subscribe((users: any) => {
-      this.users = users._embedded.users;
+    this.userService.getUsersForAdmin({pageSize: this.paginator.pageSize, pageNumber: this.paginator.pageIndex}).subscribe(it => {
+      this.userDataSource = it;
     });
   }
 
-  banAccount(user: User) {
-    this.userService.banUser(user.id)
-      .subscribe((resp: any) => {
+  onPaginationChange(event) {
+    this.getUsersForAdm();
+  }
+
+  changeRequest(user: UserDto, requestStatus: RequestStatus) {
+    this.userService.changeRequest(user.id, requestStatus)
+      .subscribe(it => {
         this.getUsersForAdm();
       });
   }
 
-  deleteAccount(userId: number) {
-    this.userService.deleteUser(userId)
-      .subscribe((resp: any) => {
-        this.getUsersForAdm();
-      });
+  changeActive(user: UserDto) {
+    this.userService.changeActive(user.id, !user.active).subscribe(it => {
+      this.getUsersForAdm();
+    });
   }
-
-  unbanAccount(user: User) {
-    this.userService.unbanUser(user.id)
-      .subscribe((resp: any) => {
-        this.getUsersForAdm();
-      });
-  }
-
 }
+
+enum RequestStatus {
+  SENDED = 'SENDED', ACCEPTED = 'ACCEPTED', DECLINED = 'DECLINED'
+}
+

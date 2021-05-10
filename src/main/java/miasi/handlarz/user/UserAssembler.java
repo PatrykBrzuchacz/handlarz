@@ -9,12 +9,13 @@ import java.util.stream.Collectors;
 @Component
 public class UserAssembler {
 
-    public List<UserDto> toDto(List<User> users) {
-        return users.stream().map(this::toDto).collect(Collectors.toList());
+    public List<UserDto> map(List<User> users) {
+        return users.stream().map(this::map).collect(Collectors.toList());
     }
 
-    public UserDto toDto(User user) {
+    public UserDto map(User user) {
         UserDto dto = new UserDto();
+        dto.setId(user.getId());
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
         dto.setCity(user.getCity());
@@ -24,6 +25,10 @@ public class UserAssembler {
         dto.setHouseNumber(user.getHouseNumber());
         dto.setStreetNumber(user.getStreetNumber());
         dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setActive(user.isActive());
+        dto.setRequestStatus(user.getRequestStatus());
+        dto.setUsername(user.getUsername());
+
         return dto;
     }
 

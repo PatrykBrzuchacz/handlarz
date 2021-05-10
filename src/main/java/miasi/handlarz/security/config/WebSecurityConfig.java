@@ -30,7 +30,7 @@ import java.io.IOException;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
-    private static final String[] PUBLIC_GET_PATHS = {"/api/users", "/**"};
+    private static final String[] PUBLIC_GET_PATHS = {"/api/users","/api/subscription", "/**"};
 
     private static final String[] PUBLIC_POST_PATHS = {"/api/users/signup", "/api/users", "/api/login"};
 
@@ -52,9 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, PUBLIC_GET_PATHS).permitAll()
                 .antMatchers(HttpMethod.POST, PUBLIC_POST_PATHS).permitAll()
-                .antMatchers("/api/**").authenticated()
-              //  .antMatchers("/**").authenticated()
-
+//                .antMatchers("/api/**").authenticated()
                 .and()
                 .addFilterBefore(new JwtLoginFilter("/api/login", authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)

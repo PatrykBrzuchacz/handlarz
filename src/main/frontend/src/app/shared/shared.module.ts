@@ -1,7 +1,7 @@
-import {RouterModule} from '@angular/router';
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   MatButtonModule,
@@ -33,15 +33,13 @@ import {
 
 } from '@angular/material';
 
-import {HttpClientModule} from '@angular/common/http';
-import {ToastrModule} from 'ngx-toastr';
-
+import { HttpClientModule } from '@angular/common/http';
+import { AddButtonModule } from './add-button/add-button.module';
 
 @NgModule({
   exports: [
     CommonModule,
     MatAutocompleteModule,
-    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,
@@ -73,7 +71,7 @@ import {ToastrModule} from 'ngx-toastr';
     MatExpansionModule,
     MatButtonToggleModule,
     MatSnackBarModule,
-    ToastrModule
+    AddButtonModule
   ]
 })
 export class SharedModule {

@@ -1,10 +1,10 @@
 package miasi.handlarz.user;
 
 import miasi.handlarz.security.model.RequestStatus;
+import miasi.handlarz.security.web.dto.UserCriteria;
 import miasi.handlarz.security.web.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,24 +20,31 @@ public class UserService {
     @Autowired
     private UserAssembler userAssembler;
 
-    public Page<UserDto> getAllUsers(Pageable pageable) {
-       return userRepository.findAll(pageable).map(it->userAssembler.toDto(it));
+    public Page<UserDto> getAllUsers(UserCriteria userCriteria) {
+        UserSpec spec = new UserSpec(userCriteria);
+       return userRepository.findAll(spec, userCriteria.toPageRequest()).map(it->userAssembler.map(it));
     }
 
     public UserDto getUser(Long id) {
-        return userAssembler.toDto(findEntity(id));
+        return userAssembler.map(findEntity(id));
     }
 
     public User findEntity(Long id) { return userRepository.getOne(id); }
 
     public UserDto getUserByUsername(String username) {
-        return userAssembler.toDto(userRepository.findByUsername(username));
+        return userAssembler.map(userRepository.findByUsername(username));
+    }
+
+    public User findEntityByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Transactional
-    public void updateUserRequest(Long id, RequestStatus requestStatus) {
+    public UserDto updateUserRequest(Long id, RequestStatus requestStatus) {
         User user = findEntity(id);
         user.setRequestStatus(requestStatus);
+        user.setActive(requestStatus.equals(RequestStatus.ACCEPTED));
+        return userAssembler.map(user);
     }
 
     public boolean isNumeric(String strNum) {
@@ -47,5 +54,11 @@ public class UserService {
         return pattern.matcher(strNum).matches();
     }
 
+    @Transactional
+    public UserDto updateUserActive(Long id, boolean newActiveStatus) {
+        User user = findEntity(id);
+        user.setActive(newActiveStatus);
+        return userAssembler.map(user);
+    }
 }
 

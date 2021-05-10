@@ -1,0 +1,12 @@
+<nav class="navbar d-flex justify-content-end ">
+  <span *ngIf="isLogged()" class="mr-2"> Witaj {{getUsername()}} !</span>
+  <mat-icon [matMenuTriggerFor]="menu">settings</mat-icon>
+  <mat-menu #menu="matMenu">
+    <button *ngIf="!isLogged()" mat-menu-item (click)="loginDialog()">Logowanie</button>
+    <button *ngIf="!isLogged()" mat-menu-item (click)="registerDialog()">Rejestracja</button>
+    <button *ngIf="isLogged()" mat-menu-item (click)="logout()">Wyloguj</button>
+    <button *ngIf="isAdmin()" mat-menu-item routerLink="/admin-panel">Panel Administracyjny</button>
+  </mat-menu>
+</nav>
+
+

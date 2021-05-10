@@ -1,15 +1,19 @@
-<!--<app-navbar></app-navbar>-->
-
 <div>
   <div class="title">Handlarz+</div>
   <div class="subtitle">system zarządzania sprzedażą</div>
   <div class="grid-wrapper">
-    <div *ngFor="let tariff of tariffDto" class="col-sm-2 price-item">
-      <div class="d-flex justify-content-center flex-column">
+    <div *ngFor="let subscription of subscriptions" class="col-sm-3 price-item">
+      <div class="d-flex justify-content-center flex-column align-items-center mt-4">
+          <h4>{{subscription.name | uppercase}}</h4>
+        <div class="d-flex">
+         <p class="money-type">zł</p> <p class="amount">{{subscription.price}} <p
+            class="per-time">/mo </p>
+        </div>
+        <span class="orders">{{subscription.fromOrders + ' - ' + subscription.toOrders }} zamówień</span>
 
-        <h5>{{tariff.type | uppercase}}</h5>
-        <span> <p class="money-type">zł</p> <p class="amount">{{tariff.amout}} <p class="per-time">/mo </p>  </span>
+        <button mat-raised-button color="primary" class="mt-3" (click)="register()">Zarejestruj</button>
       </div>
+
     </div>
 
   </div>

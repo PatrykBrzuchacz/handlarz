@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { User} from '../model';
 
-import {HttpClient } from '@angular/common/http';
-import {environment} from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { RequestStatus, SearchRequestDto, UserDto } from '../../core/api-models';
 
 
 const API_URL = environment.apiUrl;
@@ -13,23 +13,24 @@ const API_URL = environment.apiUrl;
 })
 export class UserService {
 
-  public user: User;
+  public user: UserDto;
 
-  constructor(private http: HttpClient) { }
-
-  getUsersForAdmin(): Observable<User[]> {
-    return this.http.get<User[]>(`${API_URL}/users`);
+  constructor(private http: HttpClient) {
   }
 
-  deleteUser(userId: number) {
-    return this.http.delete(`${API_URL}/users/${userId}`);
+  getUsersForAdmin(searchRequestDto: SearchRequestDto) {
+    return this.http.post<UserDto[]>(`${API_URL}/users`, searchRequestDto);
   }
 
-  banUser(id: number) {
-    return this.http.put(`${API_URL}/users/${id}/ban`, this.user);
+  changeActive(userId: number, newActiveStatus: boolean) {
+    return this.http.put(`${API_URL}/users/change-active`, { id: userId, active: newActiveStatus});
+  }
+
+  changeRequest(userId: number, requestStatus: RequestStatus) {
+    return this.http.put(`${API_URL}/users/change-request`, { id: userId, status: requestStatus});
   }
 
   unbanUser(id: number) {
-    return this.http.put<User>(`${API_URL}/users/${id}/unban`, this.user);
+    return this.http.put<UserDto>(`${API_URL}/users/${id}/unban`, this.user);
   }
 }

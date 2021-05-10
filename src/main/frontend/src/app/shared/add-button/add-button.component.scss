@@ -1,0 +1,57 @@
+@import 'variables.scss';
+
+.btn-circle {
+  @media(max-width: 1088px) {
+    width: 35px;
+    height: 35px;
+    bottom: 10px;
+    right: 10px;
+    font-size: 18px;
+  }
+
+  @media(min-width: 1088px) {
+    width: 40px;
+    height: 40px;
+    bottom: 12px;
+    right: 12px;
+    font-size: 22px;
+  }
+
+  @media(min-width: 1333px) {
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    font-size: 32px;
+  }
+
+  line-height: 1;
+  border-radius: 50% !important;
+  padding: 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  background-color: $accent;
+  color: white;
+  &:hover {
+    transition: all .2s ease-in-out;
+    transform: scale(1.1);
+  }
+}
+
+.btn-circle-map:focus {
+  outline: none;
+}
+
+mat-icon {
+  font-size: 40px;
+  height: unset;
+  width: unset;
+
+  &:hover {
+    transition: all .2s ease-in-out;
+    transform: scale(1.1);
+  }
+}

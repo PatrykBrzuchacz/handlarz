@@ -11,7 +11,7 @@ CREATE TABLE h_user
     id         SERIAL,
     username   varchar(255),
     password   varchar(255),
-    active     BOOLEAN NOT NULL DEFAULT true,
+    active     BOOLEAN NOT NULL DEFAULT false,
     id_role    bigint,
     last_login TIMESTAMP       default null,
     registered TIMESTAMP       default null,
@@ -25,6 +25,7 @@ CREATE TABLE h_user
     house_number varchar,
     street_number varchar,
     request_status varchar,
+    street varchar,
     PRIMARY KEY (id),
     foreign key (id_role) references h_role (id) on delete cascade
 );

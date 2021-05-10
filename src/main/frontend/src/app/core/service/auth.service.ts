@@ -82,4 +82,12 @@ export class AuthService {
         })
       );
   }
+
+  getRole() {
+    return localStorage.getItem('role');
+  }
+
+  getUsername() {
+    return localStorage.getItem(USERNAME_KEY);
+  }
 }

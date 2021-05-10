@@ -1,5 +1,6 @@
 package miasi.handlarz.security.service;
 
+import miasi.handlarz.security.model.RequestStatus;
 import miasi.handlarz.security.web.dto.UserCredentialsDto;
 import miasi.handlarz.security.web.dto.UserDto;
 import miasi.handlarz.security.web.securityException.UsernameAlreadyExistsException;
@@ -38,7 +39,7 @@ public class SecurityUserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        if (user.isActive()) {
+        if (!user.isActive() || user.getRequestStatus().equals(RequestStatus.DECLINED)) {
             throw new UsernameNotFoundException("Your account is inactive");
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
@@ -56,59 +57,28 @@ public class SecurityUserService implements UserDetailsService {
         return userRepository.save(newUser);
     }
 
-
-    public User assignUserData(UserCredentialsDto user) {
-        checkUsername(user.getUsername());
-
-        User newUser = new User();
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        newUser.setRole(roleService.getUserRole());
-        newUser.setRegistered(LocalDateTime.now());
-        return newUser;
-    }
-
     private void checkUsername(String username) {
         boolean usernameExists = userRepository.existsUserByUsername(username);
 
         if (usernameExists) throw new UsernameAlreadyExistsException();
     }
 
-    @Transactional
-    public void deleteUser(Long id) {
-        User user = userRepository.getOne(id);
-
-        if (user == null || !user.isActive()) {
-            throw new UsernameNotFoundException("User doesn't exist");
-        }
-        user.setActive(false);
-    }
-
-    @Transactional
-    public void banUser(Long id) {
-        User user = userRepository.getOne(id);
-
-        if (user.isActive()) {
-            throw new UsernameNotFoundException("User doesn't exist or its actually banned");
-        }
-        user.setActive(true);
-    }
-    @Transactional
-    public void unbanUser(Long id) {
-        User user = userRepository.getOne(id);
-
-        if (!user.isActive()) {
-            throw new UsernameNotFoundException("User doesn't exists or itsnt actually banned");
-        }
-        user.setActive(false);
-    }
-
     public UserDto getLoggedUser() {
-        return userAssembler.toDto(securityUserHelper.getLoggedUser());
+        return userAssembler.map(securityUserHelper.getLoggedUser());
     }
 
-    public void createRequestToSignup(UserCredentialsDto userCredentialsDto) {
+    public User assignUserData(UserCredentialsDto dto) {
+        checkUsername(dto.getUsername());
 
+        User newUser = new User();
+        newUser.setUsername(dto.getUsername());
+        newUser.setPassword(bcryptEncoder.encode(dto.getPassword()));
+        newUser.setRole(roleService.getUserRole());
+        newUser.setRegistered(LocalDateTime.now());
+        newUser.setRequestStatus(RequestStatus.SENDED);
+        newUser.setNip(dto.getNip());
+
+        return newUser;
     }
 }
 

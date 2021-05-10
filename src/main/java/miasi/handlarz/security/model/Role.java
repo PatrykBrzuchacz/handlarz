@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(name = "h_role")
 public class Role {
 
     @Id

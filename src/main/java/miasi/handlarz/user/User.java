@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import miasi.handlarz.security.model.RequestStatus;
 import miasi.handlarz.security.model.Role;
+import miasi.handlarz.security.web.dto.UserCredentialsDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -21,7 +22,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
     private Long id;
 
     @NonNull
@@ -46,9 +46,7 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private LocalDateTime lastLogin;
 
-    @JsonIgnore
     @ManyToOne
-    @NonNull
     @JoinColumn(name = "id_role")
     private Role role;
 
@@ -65,4 +63,5 @@ public class User {
 
     @Enumerated(value = EnumType.STRING)
     private RequestStatus requestStatus;
+
 }
