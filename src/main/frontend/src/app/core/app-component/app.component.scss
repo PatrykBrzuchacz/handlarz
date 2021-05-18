@@ -5,8 +5,11 @@
 
 mat-drawer-content {
   min-height: calc(100vh - 40px);
+  width: 100%;
+  margin-left:0 !important;
 
   &.resize-width {
     width: calc(100% - 230px);
+    float: right;
   }
 }

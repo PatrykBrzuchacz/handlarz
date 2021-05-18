@@ -8,6 +8,7 @@ import lombok.NonNull;
 import miasi.handlarz.security.model.RequestStatus;
 import miasi.handlarz.security.model.Role;
 import miasi.handlarz.security.web.dto.UserCredentialsDto;
+import miasi.handlarz.subscription.Subscription;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -55,6 +56,9 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "company_name")
+    private String companyName;
+
     private String nip;
     private String city;
     private String street;
@@ -64,4 +68,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private RequestStatus requestStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "subscription_id")
+    private Subscription subscription;
 }

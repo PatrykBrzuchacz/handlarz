@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -27,5 +29,10 @@ public class ProductController {
     @PutMapping()
     public ProductDto update(@RequestBody ProductDto dto) {
         return service.update(dto);
+    }
+
+    @GetMapping
+    public List<ProductDto> getAll() {
+        return service.find();
     }
 }

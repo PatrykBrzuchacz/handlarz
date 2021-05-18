@@ -3,6 +3,7 @@ package miasi.handlarz.security.web.dto;
 import lombok.Getter;
 import lombok.Setter;
 import miasi.handlarz.security.model.RequestStatus;
+import miasi.handlarz.subscription.web.SubscriptionDto;
 
 @Getter
 @Setter
@@ -20,4 +21,6 @@ public class UserDto {
     private boolean active;
     private RequestStatus requestStatus;
     private String username;
+    private SubscriptionDto subscriptionDto;
+    private String companyName;
 }

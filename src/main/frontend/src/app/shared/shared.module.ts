@@ -28,7 +28,7 @@ import {
   MatSliderModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatAutocompleteModule,
+  MatAutocompleteModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE,
 
 
 } from '@angular/material';
@@ -71,7 +71,13 @@ import { AddButtonModule } from './add-button/add-button.module';
     MatExpansionModule,
     MatButtonToggleModule,
     MatSnackBarModule,
-    AddButtonModule
+    AddButtonModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ]
 })
 export class SharedModule {

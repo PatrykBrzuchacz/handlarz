@@ -90,7 +90,7 @@ export class ProductFormModalComponent implements OnInit {
   }
 
   onSaveClick() {
-    this.dialogRef.close(this.form.getRawValue());
+    this.form.valid && this.dialogRef.close(this.form.getRawValue());
   }
 
   numberOnly(event): boolean {

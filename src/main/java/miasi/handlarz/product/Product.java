@@ -1,14 +1,14 @@
 package miasi.handlarz.product;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import miasi.handlarz.user.User;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "h_product")
 public class Product {
 

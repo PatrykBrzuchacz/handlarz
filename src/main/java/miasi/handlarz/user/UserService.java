@@ -1,8 +1,11 @@
 package miasi.handlarz.user;
 
 import miasi.handlarz.security.model.RequestStatus;
+import miasi.handlarz.security.service.SecurityUserHelper;
+import miasi.handlarz.security.service.SecurityUserService;
 import miasi.handlarz.security.web.dto.UserCriteria;
 import miasi.handlarz.security.web.dto.UserDto;
+import miasi.handlarz.subscription.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,10 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private UserAssembler userAssembler;
+    @Autowired
+    private SubscriptionService subscriptionService;
+    @Autowired
+    private SecurityUserHelper securityUserHelper;
 
     public Page<UserDto> getAllUsers(UserCriteria userCriteria) {
         UserSpec spec = new UserSpec(userCriteria);
@@ -59,6 +66,33 @@ public class UserService {
         User user = findEntity(id);
         user.setActive(newActiveStatus);
         return userAssembler.map(user);
+    }
+
+    @Transactional
+    public UserDto updateDetails(UserDto dto) {
+        User user = updateDetails(dto, findEntity(dto.getId()));
+        return userAssembler.map(user);
+    }
+
+    private User updateDetails(UserDto dto, User user) {
+        user.setCity(dto.getCity());
+        user.setEmail(dto.getEmail());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setHouseNumber(dto.getHouseNumber());
+        user.setStreet(dto.getStreet());
+        user.setStreetNumber(dto.getStreetNumber());
+        user.setPhoneNumber(dto.getPhoneNumber());
+        user.setCompanyName(dto.getCompanyName());
+        if(dto.getSubscriptionDto()!=null) {
+            user.setSubscription(subscriptionService.findOne(dto.getSubscriptionDto().getId()));
+        }
+
+        return user;
+    }
+
+    public UserDto getLoggedUserDetails() {
+        return userAssembler.map(securityUserHelper.getLoggedUser());
     }
 }
 

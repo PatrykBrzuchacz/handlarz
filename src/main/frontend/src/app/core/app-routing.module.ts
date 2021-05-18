@@ -29,6 +29,30 @@ const appRoutes: Routes = [
     loadChildren: 'app/functionalities/product/product.module#ProductModule'
   },
   {
+    data: {
+      role: 'ROLE_USER'
+    },
+    canLoad: [AuthGuard],
+    path: 'regular-clients',
+    loadChildren: 'app/functionalities/regular-client/regular-client.module#RegularClientModule'
+  },
+  {
+    data: {
+      role: 'ROLE_USER'
+    },
+    canLoad: [AuthGuard],
+    path: 'user-panel',
+    loadChildren: 'app/functionalities/user-panel/user-panel.module#UserPanelModule'
+  },
+  {
+    data: {
+      role: 'ROLE_USER'
+    },
+    canLoad: [AuthGuard],
+    path: 'external-shipments',
+    loadChildren: 'app/functionalities/external-shipment/external-shipment.module#ExternalShipmentModule'
+  },
+  {
     path: '**',
     redirectTo: 'home',
     pathMatch: 'full'

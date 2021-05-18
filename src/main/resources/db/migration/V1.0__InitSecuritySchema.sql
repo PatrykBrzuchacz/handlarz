@@ -26,6 +26,7 @@ CREATE TABLE h_user
     street_number varchar,
     request_status varchar,
     street varchar,
+    company_name varchar,
     PRIMARY KEY (id),
     foreign key (id_role) references h_role (id) on delete cascade
 );

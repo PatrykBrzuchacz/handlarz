@@ -16,6 +16,11 @@ export class ProductService {
     return this.http.post<ProductDto[]>(`${API_URL}/products`, criteria);
   }
 
+  getAllUnpaged() {
+    return this.http.get<ProductDto[]>(`${API_URL}/products`);
+  }
+
+
   add(productDto: ProductDto) {
     return this.http.post<ProductDto>(`${API_URL}/products/add`, productDto);
   }

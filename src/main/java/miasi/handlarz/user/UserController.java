@@ -39,5 +39,14 @@ public class UserController {
         return userService.getUserByUsername(username);
     }
 
+    @PutMapping("/details")
+    public UserDto updateDetails(@RequestBody UserDto dto) {
+        return userService.updateDetails(dto);
+    }
+
+    @GetMapping("/details")
+    public UserDto getLoggedUserDetails() {
+        return userService.getLoggedUserDetails();
+    }
 }
 

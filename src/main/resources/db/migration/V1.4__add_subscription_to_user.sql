@@ -1,0 +1,1 @@
+alter table h_user add column if not exists subscription_id bigint;

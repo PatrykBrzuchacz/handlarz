@@ -43,4 +43,8 @@ public class SubscriptionService {
         subscription.setPrice(dto.getPrice());
         return subscription;
     }
+
+    public Subscription findOne(Long id) {
+        return repository.getOne(id);
+    }
 }

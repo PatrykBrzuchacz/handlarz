@@ -1,6 +1,20 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export interface ExternalShipmentCriteria extends SearchRequestDto {
+    username?: string;
+}
+
+export interface ExternalShipmentDto {
+    admissionDate?: string;
+    amount?: number;
+    id?: number;
+    issueDate?: string;
+    price?: number;
+    product?: ProductDto;
+    username?: string;
+}
+
 export interface ProductCriteria extends SearchRequestDto {
     username?: string;
 }
@@ -18,6 +32,25 @@ export interface ProductDto {
 }
 
 export interface RegisterUserDto {
+}
+
+export interface RegularClientCriteria extends SearchRequestDto {
+    username?: string;
+}
+
+export interface RegularClientDto {
+    city?: string;
+    companyName?: string;
+    email?: string;
+    firstName?: string;
+    houseNumber?: string;
+    id?: number;
+    lastName?: string;
+    nip?: string;
+    phoneNumber?: string;
+    street?: string;
+    streetNumber?: string;
+    username?: string;
 }
 
 export interface SearchRequestDto extends Serializable {
@@ -54,6 +87,7 @@ export interface UserCriteria extends SearchRequestDto {
 export interface UserDto {
     active?: boolean;
     city?: string;
+    companyName?: string;
     email?: string;
     firstName?: string;
     houseNumber?: string;
@@ -64,6 +98,7 @@ export interface UserDto {
     requestStatus?: RequestStatus;
     street?: string;
     streetNumber?: string;
+    subscriptionDto?: SubscriptionDto;
     username?: string;
 }
 

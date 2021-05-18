@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import miasi.handlarz.product.web.dto.ProductCriteria;
 import miasi.handlarz.product.web.dto.ProductDto;
 import miasi.handlarz.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,4 +37,11 @@ public class ProductService {
         return assembler.map(product);
     }
 
+    public Product findEntity(Long productId) {
+        return repository.getOne(productId);
+    }
+
+    public List<ProductDto> find() {
+        return repository.findAll().stream().map(assembler::map).collect(Collectors.toList());
+    }
 }

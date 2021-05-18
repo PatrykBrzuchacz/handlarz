@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AuthService } from '../service';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
@@ -15,7 +15,7 @@ import { UserDto } from '../api-models';
 export class NavbarComponent implements OnInit {
   loggedUser: UserDto;
 
-  constructor(public authService: AuthService, private router: Router, public dialog: MatDialog) {
+  constructor(public authService: AuthService, private router: Router, public dialog: MatDialog, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {

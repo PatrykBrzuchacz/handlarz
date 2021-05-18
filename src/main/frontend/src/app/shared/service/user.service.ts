@@ -30,7 +30,14 @@ export class UserService {
     return this.http.put(`${API_URL}/users/change-request`, { id: userId, status: requestStatus});
   }
 
+  getLoggedUserDetails() {
+    return this.http.get(`${API_URL}/users/details`);
+  }
   unbanUser(id: number) {
     return this.http.put<UserDto>(`${API_URL}/users/${id}/unban`, this.user);
+  }
+
+  updateDetails(userDto: UserDto) {
+    return this.http.put(`${API_URL}/users/details`, userDto);
   }
 }

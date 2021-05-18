@@ -1,0 +1,96 @@
+<mat-card>
+  <form [formGroup]="form" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="row">
+
+      <mat-form-field class="col-sm-6">
+        <input matInput type="text" formControlName="username" placeholder="Nazwa użytkownika">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="col-sm-6">
+        <mat-label>Subskrypcja</mat-label>
+        <mat-select formControlName="subscriptionDto"  [compareWith]="compareByValue">
+          <mat-option *ngFor="let sub of subscriptions" [value]="sub">
+            {{sub.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-6">
+        <input matInput type="text" formControlName="firstName" placeholder="Imię">
+        <mat-error *ngIf="form.controls['firstName'].hasError('required')">
+          Pole jest <strong>wymagane</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-6">
+        <input matInput type="text" formControlName="lastName" placeholder="Nazwisko">
+        <mat-error *ngIf="form.controls['lastName'].hasError('required')">
+          Pole jest <strong>wymagane</strong>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="col-sm-6">
+        <input matInput type="text" formControlName="companyName" placeholder="Nazwa firmy">
+        <mat-error *ngIf="form.controls['companyName'].hasError('required')">
+          Pole jest <strong>wymagane</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-6">
+        <input matInput type="number" formControlName="nip" placeholder="NIP" (keypress)="numberOnly($event)">
+        <mat-error *ngIf="form.controls['nip'].hasError('required')">
+          Pole jest <strong>wymagane</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4">
+        <input matInput type="text" formControlName="city" placeholder="Miasto">
+        <mat-error *ngIf="form.controls['city'].hasError('required')">
+          Pole jest <strong>wymagane</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4">
+        <input matInput type="text" formControlName="street" placeholder="Ulica">
+        <mat-error *ngIf="form.controls['street'].hasError('required')">
+          Pole jest <strong>wymagane</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4">
+        <input matInput type="text" formControlName="streetNumber" placeholder="Numer ulicy">
+        <mat-error *ngIf="form.controls['streetNumber'].hasError('required')">
+          Pole jest <strong>wymagane</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4">
+        <input matInput type="text" formControlName="houseNumber" placeholder="Numer domu">
+        <mat-error *ngIf="form.controls['houseNumber'].hasError('required')">
+          Pole jest <strong>wymagane</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4">
+        <input matInput type="number" formControlName="phoneNumber" placeholder="Numer telefonu" (keypress)="numberOnly($event)">
+        <mat-error *ngIf="form.controls['phoneNumber'].hasError('required')">
+          Pole jest <strong>wymagane</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4">
+        <input matInput type="text" formControlName="email" placeholder="Email">
+        <mat-error *ngIf="form.controls['email'].hasError('required')">
+          Pole jest <strong>wymagane</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <button mat-raised-button color="primary" class="mt-2" (click)="onSaveClick()">Zapisz</button>
+  </form>
+
+</mat-card>
+
+<mat-spinner [diameter]="60" *ngIf="loading"></mat-spinner>
