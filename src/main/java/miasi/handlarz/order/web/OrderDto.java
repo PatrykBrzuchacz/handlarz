@@ -15,9 +15,13 @@ import java.util.List;
 public class OrderDto {
     private Long id;
     private List<ProductOrderDto> products;
-    private RegularClientDto regularClient;
+    private RegularClientDto client;
     private UserDto userDto;
     private float price;
     private LocalDateTime createdDate;
+    private LocalDateTime wzCreatedDate;
+    private String wzNumber;
     private OrderStatus status;
+    private String orderNumber;
+    private String username;
 }

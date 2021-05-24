@@ -7,6 +7,7 @@ CREATE TABLE h_external_shipment
     issue_date     varchar,
     admission_date varchar,
     product_id     bigint,
+    document_number varchar,
     foreign key (user_id) references h_user (id),
     foreign key (product_id) references h_product (id)
 );

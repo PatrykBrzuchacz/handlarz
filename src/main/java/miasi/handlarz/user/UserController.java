@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -47,6 +49,11 @@ public class UserController {
     @GetMapping("/details")
     public UserDto getLoggedUserDetails() {
         return userService.getLoggedUserDetails();
+    }
+
+    @GetMapping("/getAll")
+    public List<UserDto> getAll() {
+        return userService.getAllUnpaged();
     }
 }
 

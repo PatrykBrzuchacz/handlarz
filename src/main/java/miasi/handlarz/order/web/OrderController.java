@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/order")
+@RequestMapping("/api/orders")
 public class OrderController {
 
     @Autowired
@@ -20,8 +20,8 @@ public class OrderController {
         return service.add(dto);
     }
 
-    @PutMapping()
-    public OrderDto update(@RequestBody OrderDto dto) {
-        return service.update(dto);
+    @PutMapping("/change-status")
+    public OrderDto update(@RequestBody OrderChangeStatusDto dto) {
+        return service.changeStatus(dto.getOrderId(), dto.getOrderStatus());
     }
 }

@@ -1,0 +1,87 @@
+<div class="wrapper">
+
+  <mat-card>
+    <div class="row">
+      <mat-form-field class="col-sm-4">
+        <input matInput type="text" [(ngModel)]="documentNumber" placeholder="Nazwa dokumentu">
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4">
+        <mat-label>Typ faktury</mat-label>
+        <mat-select  [(ngModel)]="invoiceType" placeholder="Typ" >
+          <mat-option [value]=""></mat-option>
+          <mat-option [value]="InvoiceType.ORDER">Kliencka</mat-option>
+          <mat-option [value]="InvoiceType.ADMIN">Subskrypcja</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4">
+        <mat-label>Klient</mat-label>
+        <mat-select [(ngModel)]="client" >
+          <mat-option [value]=""></mat-option>
+          <mat-option *ngFor="let client of clients" [value]="client">
+            {{client.firstName + ' ' + client.lastName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="w-100 d-flex justify-content-end mr-4">
+      <button mat-raised-button color="primary" (click)="getOrders()">Wyszukaj</button>
+    </div>
+  </mat-card>
+
+  <table mat-table matSort [dataSource]="invoiceDataSource?.content" class="mat-elevation-z8 mt-4">
+
+    <ng-container matColumnDef="invoiceNumber">
+      <th mat-header-cell *matHeaderCellDef>Numer faktury</th>
+      <td mat-cell *matCellDef="let element"> {{element.invoiceNumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="invoiceType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Typ</th>
+      <td mat-cell
+          *matCellDef="let element"> {{element.type === InvoiceType.ORDER ? 'KLIENCKA' : 'SUBSKRYPJCA' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="suborClient">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sub/Klient</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.type === InvoiceType.ORDER ? element.order?.client?.firstName + ' ' + element.order?.client?.lastName :
+          element.user?.subscriptionDto?.name
+        }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Data stworzenia</th>
+      <td mat-cell *matCellDef="let element"> {{element.createdDate | date:'dd/MM/yyyy'}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Cena</th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary" *ngIf="element.type===InvoiceType.ORDER" (click)="edit(element)">Podgląd</button>
+        <button mat-raised-button color="primary" *ngIf="element.type!==InvoiceType.ORDER">Zapłać</button>
+        <button mat-raised-button color="accent">PDF</button>
+
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [length]="invoiceDataSource?.totalElements" [pageSize]="invoiceDataSource?.size"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 (page)="onPaginationChange($event)"
+                 showFirstLastButtons></mat-paginator>
+</div>
+
+

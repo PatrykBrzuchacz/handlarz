@@ -27,7 +27,7 @@ public class Order {
     private User user;
 
     @JoinColumn(name = "client_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private RegularClient regularClient;
 
     @Column(name = "created_date")
@@ -54,6 +54,6 @@ public class Order {
     @Column(name = "wz_number")
     private String wzNumber;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
     private Invoice invoice;
 }

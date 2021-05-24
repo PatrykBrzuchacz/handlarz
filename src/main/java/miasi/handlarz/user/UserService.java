@@ -2,16 +2,18 @@ package miasi.handlarz.user;
 
 import miasi.handlarz.security.model.RequestStatus;
 import miasi.handlarz.security.service.SecurityUserHelper;
-import miasi.handlarz.security.service.SecurityUserService;
 import miasi.handlarz.security.web.dto.UserCriteria;
 import miasi.handlarz.security.web.dto.UserDto;
 import miasi.handlarz.subscription.SubscriptionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -29,14 +31,16 @@ public class UserService {
 
     public Page<UserDto> getAllUsers(UserCriteria userCriteria) {
         UserSpec spec = new UserSpec(userCriteria);
-       return userRepository.findAll(spec, userCriteria.toPageRequest()).map(it->userAssembler.map(it));
+        return userRepository.findAll(spec, userCriteria.toPageRequest()).map(it -> userAssembler.map(it));
     }
 
     public UserDto getUser(Long id) {
         return userAssembler.map(findEntity(id));
     }
 
-    public User findEntity(Long id) { return userRepository.getOne(id); }
+    public User findEntity(Long id) {
+        return userRepository.getOne(id);
+    }
 
     public UserDto getUserByUsername(String username) {
         return userAssembler.map(userRepository.findByUsername(username));
@@ -84,7 +88,7 @@ public class UserService {
         user.setStreetNumber(dto.getStreetNumber());
         user.setPhoneNumber(dto.getPhoneNumber());
         user.setCompanyName(dto.getCompanyName());
-        if(dto.getSubscriptionDto()!=null) {
+        if (dto.getSubscriptionDto() != null) {
             user.setSubscription(subscriptionService.findOne(dto.getSubscriptionDto().getId()));
         }
 
@@ -93,6 +97,15 @@ public class UserService {
 
     public UserDto getLoggedUserDetails() {
         return userAssembler.map(securityUserHelper.getLoggedUser());
+    }
+
+    public List<UserDto> getAllUnpaged() {
+        return findAll().stream().filter(it-> StringUtils.isNotBlank(it.getFirstName())).map(it -> userAssembler.map(it)).collect(Collectors.toList());
+    }
+
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }
 

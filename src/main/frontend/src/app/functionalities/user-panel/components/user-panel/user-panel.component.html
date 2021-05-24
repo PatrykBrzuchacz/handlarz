@@ -6,9 +6,11 @@
         <input matInput type="text" formControlName="username" placeholder="Nazwa użytkownika">
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="col-sm-6">
+      <mat-form-field class="col-sm-6">
         <mat-label>Subskrypcja</mat-label>
         <mat-select formControlName="subscriptionDto"  [compareWith]="compareByValue">
+          <mat-option></mat-option>
+
           <mat-option *ngFor="let sub of subscriptions" [value]="sub">
             {{sub.name}}
           </mat-option>

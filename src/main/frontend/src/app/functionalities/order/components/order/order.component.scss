@@ -1,0 +1,27 @@
+mat-icon {
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all .2s ease-in-out;
+  }
+}
+
+mat-spinner {
+  position: absolute;
+  top: 35%;
+  right: 48%;
+}
+
+.wrapper {
+  margin: 50px;
+
+  table {
+    width: 100%;
+  }
+
+  button {
+    margin: 7px;
+  }
+
+}
+

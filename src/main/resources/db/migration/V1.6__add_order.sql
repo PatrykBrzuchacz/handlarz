@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS h_order
     wz_number varchar,
     PRIMARY KEY (id),
     foreign key (user_id) references h_user (id) on delete cascade,
-    foreign key (client_id) references h_client (id) on delete cascade
+    foreign key (client_id) references h_regular_client (id) on delete cascade
 );
 
 create table if not exists h_product_order

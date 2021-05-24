@@ -10,6 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
+
 @Service
 @RequiredArgsConstructor
 public class ExternalShipmentService {
@@ -34,7 +38,7 @@ public class ExternalShipmentService {
         entity.setPrice(dto.getPrice());
         entity.setAmount(dto.getAmount());
         entity.setUser(userService.findEntityByUsername(dto.getUsername()));
-
+        entity.setDocumentNumber(getOrderNumber("PZ ", entity.getUser().getId(), dto.getIssueDate()));
         Product product = productService.findEntity(dto.getProduct().getId());
         product.setAmount(product.getAmount() + dto.getAmount());
 
@@ -45,5 +49,12 @@ public class ExternalShipmentService {
         return entity;
     }
 
+    private String getOrderNumber(String prefix, Long userId, LocalDateTime date) {
+        return prefix  +  (repository.countByUser_IdAndIssueDateBetween(userId,
+                date.with(TemporalAdjusters.firstDayOfMonth()),
+                date.with(TemporalAdjusters.lastDayOfMonth())) + 1 )
+                + "/" +
+                LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear();
+    }
 
 }

@@ -53,6 +53,30 @@ const appRoutes: Routes = [
     loadChildren: 'app/functionalities/external-shipment/external-shipment.module#ExternalShipmentModule'
   },
   {
+    data: {
+      role: 'ROLE_USER'
+    },
+    canLoad: [AuthGuard],
+    path: 'orders',
+    loadChildren: 'app/functionalities/order/order.module#OrderModule'
+  },
+  {
+    data: {
+      role: 'ROLE_USER'
+    },
+    canLoad: [AuthGuard],
+    path: 'warehouse-release',
+    loadChildren: 'app/functionalities/warehouse-release/warehouse-release.module#WarehouseReleaseModule'
+  },
+  {
+    data: {
+      role: 'ROLE_USER'
+    },
+    canLoad: [AuthGuard],
+    path: 'invoices',
+    loadChildren: 'app/functionalities/invoice/invoice.module#InvoiceModule'
+  },
+  {
     path: '**',
     redirectTo: 'home',
     pathMatch: 'full'

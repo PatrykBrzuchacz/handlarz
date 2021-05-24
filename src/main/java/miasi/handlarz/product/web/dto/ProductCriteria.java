@@ -8,4 +8,5 @@ import miasi.handlarz.shared.dto.SearchRequestDto;
 @NoArgsConstructor
 public class ProductCriteria extends SearchRequestDto {
     private String username;
+    private String name;
 }

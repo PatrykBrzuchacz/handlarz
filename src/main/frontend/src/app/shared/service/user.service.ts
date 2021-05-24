@@ -22,6 +22,10 @@ export class UserService {
     return this.http.post<UserDto[]>(`${API_URL}/users`, searchRequestDto);
   }
 
+  getAllUnpaged() {
+    return this.http.get<UserDto[]>(`${API_URL}/users/getAll`);
+  }
+
   changeActive(userId: number, newActiveStatus: boolean) {
     return this.http.put(`${API_URL}/users/change-active`, { id: userId, active: newActiveStatus});
   }

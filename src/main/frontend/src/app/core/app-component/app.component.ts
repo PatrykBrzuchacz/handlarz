@@ -20,13 +20,6 @@ export class AppComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    if (this.isLogged()) {
-      this.contentWidth = 'calc(100% - 230px)';
-    } else {
-      this.contentWidth = '100%';
-    }
-    console.log(this.matDrawerContent)
-    console.log(this.contentWidth)
     this.cdr.detectChanges()
   }
 

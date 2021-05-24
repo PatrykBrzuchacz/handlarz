@@ -45,16 +45,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
         <mat-form-field class="col-sm-4">
           <input matInput type="text" formControlName="street" placeholder="Ulica">
-          <mat-error *ngIf="form.controls['street'].hasError('required')">
-            Pole jest <strong>wymagane</strong>
-          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-sm-4">
           <input matInput type="text" formControlName="streetNumber" placeholder="Numer ulicy">
-          <mat-error *ngIf="form.controls['streetNumber'].hasError('required')">
-            Pole jest <strong>wymagane</strong>
-          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-sm-4">
@@ -112,8 +106,8 @@ export class RegularClientFormModal implements OnInit {
       lastName: [null, Validators.required],
       nip: [null, Validators.required],
       city: [null, Validators.required],
-      street: [null, Validators.required],
-      streetNumber: [null, Validators.required],
+      street: [null],
+      streetNumber: [null],
       houseNumber: [null, Validators.required],
       phoneNumber: [null, Validators.required],
       email: [null, Validators.required],

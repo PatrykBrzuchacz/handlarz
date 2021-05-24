@@ -7,6 +7,6 @@ import miasi.handlarz.product.web.dto.ProductDto;
 @Getter
 @Setter
 public class ProductOrderDto {
-    private ProductDto productDto;
+    private ProductDto product;
     private int amount;
 }

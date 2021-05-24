@@ -19,14 +19,4 @@ public class InvoiceController {
     @PostMapping
     public Page<InvoiceDto> get(@RequestBody InvoiceCriteria criteria) { return service.find(criteria); }
 
-    @PostMapping("/add")
-    public InvoiceDto add(@RequestBody InvoiceDto dto) {
-        return service.add(dto);
-    }
-
-    @PutMapping()
-    public InvoiceDto update(@RequestBody InvoiceDto dto) {
-        return service.update(dto);
-    }
-
 }

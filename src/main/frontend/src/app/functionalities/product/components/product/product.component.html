@@ -1,4 +1,16 @@
 <div class="wrapper">
+
+  <mat-card>
+    <div class="row">
+      <mat-form-field class="col-sm-12">
+        <input matInput type="text" [(ngModel)]="name" placeholder="Nazwa produktu">
+      </mat-form-field>
+    </div>
+    <div class="w-100 d-flex justify-content-end mr-4">
+      <button mat-raised-button color="primary"  (click)="getProducts()">Wyszukaj</button>
+    </div>
+  </mat-card>
+
   <table mat-table matSort [dataSource]="productDataSource?.content" class="mat-elevation-z8 mt-4">
 
     <ng-container matColumnDef="name">

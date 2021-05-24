@@ -20,10 +20,10 @@ public class Invoice {
     private Long id;
 
     @JoinColumn(name = "order_id")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Order order;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
     @Column(name = "invoice_number")
@@ -38,7 +38,6 @@ public class Invoice {
 
     private float price;
 
-    private float vat;
 }
 
 

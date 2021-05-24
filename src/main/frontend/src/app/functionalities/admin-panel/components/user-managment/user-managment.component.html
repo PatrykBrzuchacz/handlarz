@@ -15,18 +15,21 @@
         <input matInput type="text" formControlName="nip" placeholder="NIP">
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="col-sm-4">
+      <mat-form-field class="col-sm-4">
         <mat-label>Status zgłoszenia</mat-label>
         <mat-select formControlName="requestStatus">
+          <mat-option></mat-option>
           <mat-option  [value]="RequestStatus.ACCEPTED">Zaakceptowane</mat-option>
           <mat-option  [value]="RequestStatus.DECLINED">Odrzucone</mat-option>
           <mat-option  [value]="RequestStatus.SENDED">Oczekujące</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="col-sm-4">
+      <mat-form-field class="col-sm-4">
         <mat-label>Subskrypcje</mat-label>
         <mat-select formControlName="subscription" [compareWith]="compareByValue">
+          <mat-option></mat-option>
+
           <mat-option *ngFor="let subscription of subscriptions" [value]="subscription">
             {{subscription.name}}
           </mat-option>
@@ -35,7 +38,7 @@
 
       <div class="w-100 d-flex justify-content-end mr-4">
       <button mat-raised-button color="primary"  (click)="getUsersForAdm()">Wyszukaj</button>
-      </div>
+    </div>
     </div>
 
   </mat-card>

@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../../product/components/product.service';
-import {AuthService} from '../../../../core/service';
 import {ProductDto} from '../../../../core/api-models';
 
 @Component({
@@ -10,7 +9,7 @@ import {ProductDto} from '../../../../core/api-models';
     <form [formGroup]="form" class="d-flex flex-column justify-content-center align-items-center">
       <div class="row">
 
-        <mat-form-field appearance="fill" class="col-sm-12">
+        <mat-form-field class="col-sm-12">
           <mat-label>Produkt</mat-label>
           <mat-select formControlName="product" [compareWith]="compareByValue">
             <mat-option *ngFor="let product of products" [value]="product">
@@ -34,15 +33,15 @@ import {ProductDto} from '../../../../core/api-models';
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="col-sm-6">
+        <mat-form-field class="col-sm-6">
           <mat-label>Data przyjęcia</mat-label>
           <input matInput [matDatepicker]="picker" disabled formControlName="issueDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker disabled="false"></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="col-sm-6">
-          <mat-label>Data wydania</mat-label>
+        <mat-form-field class="col-sm-6">
+          <mat-label>Data wystawienia</mat-label>
           <input matInput [matDatepicker]="picker2" disabled formControlName="admissionDate">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2 disabled="false"></mat-datepicker>

@@ -2,7 +2,9 @@ package miasi.handlarz.product;
 
 import lombok.RequiredArgsConstructor;
 import miasi.handlarz.product.web.dto.ProductCriteria;
+import miasi.handlarz.shared.PredicateUtil;
 import miasi.handlarz.user.User_;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -22,7 +24,9 @@ public class ProductSpec implements Specification<Product> {
         List<Predicate> predicates = new ArrayList<>();
 
         predicates.add(cb.equal(root.join(Product_.user).get(User_.USERNAME), criteria.getUsername()));
-
+        if (StringUtils.isNotBlank(criteria.getName())) {
+            predicates.add(PredicateUtil.createLikePredicate(cb, root.get(Product_.NAME), criteria.getName()));
+        }
         return cb.and(predicates.toArray(new Predicate[predicates.size()]));
     }
 }

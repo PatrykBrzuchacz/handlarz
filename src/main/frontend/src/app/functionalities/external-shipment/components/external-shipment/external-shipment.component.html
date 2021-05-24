@@ -1,4 +1,28 @@
 <div class="wrapper">
+
+  <mat-card>
+    <div class="row">
+      <mat-form-field class="col-sm-6">
+        <input matInput type="text" [(ngModel)]="documentNumber" placeholder="Nazwa dokumentu">
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-6">
+        <mat-label>Produkt</mat-label>
+        <mat-select [(ngModel)]="product" >
+          <mat-option></mat-option>
+          <mat-option *ngFor="let product of products" [value]="product">
+            {{product.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <div class="w-100 d-flex justify-content-end mr-4">
+      <button mat-raised-button color="primary"  (click)="getExternalShipments()">Wyszukaj</button>
+    </div>
+  </mat-card>
+
   <table mat-table matSort [dataSource]="externalShipmentDataSource?.content" class="mat-elevation-z8 mt-4">
 
     <ng-container matColumnDef="documentNr">

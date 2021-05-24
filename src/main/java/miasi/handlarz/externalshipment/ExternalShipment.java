@@ -18,8 +18,8 @@ public class ExternalShipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name = "document_number")
-//    private String documentNumber;
+    @Column(name = "document_number")
+    private String documentNumber;
 
     @Column(name = "issue_date")
     private LocalDateTime issueDate;

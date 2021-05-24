@@ -23,4 +23,8 @@ export class RegularClientService {
   update(regularClientDto: RegularClientDto) {
     return this.http.put<RegularClientDto>(`${API_URL}/regular-client/update`, regularClientDto);
   }
+
+  getAllUnpaged() {
+    return this.http.get<RegularClientDto[]>(`${API_URL}/regular-client`);
+  }
 }

@@ -1,0 +1,72 @@
+<div class="wrapper">
+
+  <mat-card>
+    <div class="row">
+      <mat-form-field class="col-sm-6">
+        <input matInput type="text" [(ngModel)]="documentNumber" placeholder="Nazwa dokumentu">
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-6">
+        <mat-label>Użytkownik</mat-label>
+        <mat-select [(ngModel)]="user" >
+          <mat-option [value]=""></mat-option>
+          <mat-option *ngFor="let user of users" [value]="user">
+            {{user.firstName + ' ' + user.lastName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="w-100 d-flex justify-content-end mr-4">
+      <button mat-raised-button color="primary" (click)="getOrders()">Wyszukaj</button>
+    </div>
+  </mat-card>
+
+  <table mat-table matSort [dataSource]="invoiceDataSource?.content" class="mat-elevation-z8 mt-4">
+
+    <ng-container matColumnDef="invoiceNumber">
+      <th mat-header-cell *matHeaderCellDef>Numer faktury</th>
+      <td mat-cell *matCellDef="let element"> {{element.invoiceNumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="invoiceType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Typ</th>
+      <td mat-cell
+          *matCellDef="let element"> {{element.type === InvoiceType.ORDER ? 'KLIENCKA' : 'SUBSKRYPJCA' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="suborClient">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Użytkownik</th>
+      <td mat-cell *matCellDef="let element">
+        {{element?.user?.firstName + ' ' + element?.user?.lastName}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Data stworzenia</th>
+      <td mat-cell *matCellDef="let element"> {{element.createdDate | date:'dd/MM/yyyy'}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Cena</th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="accent">PDF</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [length]="invoiceDataSource?.totalElements" [pageSize]="invoiceDataSource?.size"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 (page)="onPaginationChange($event)"
+                 showFirstLastButtons></mat-paginator>
+</div>
+
+
