@@ -23,6 +23,8 @@ export class OrderComponent implements OnInit {
   OrderStatus = OrderStatus;
   clients = [];
   client: RegularClientDto;
+  orderStatus: OrderStatus;
+
   constructor(private orderService: OrderService,
               private dialog: MatDialog,
               private authService: AuthService,
@@ -42,7 +44,9 @@ export class OrderComponent implements OnInit {
       documentNumber: this.documentNumber,
       pageSize: this.paginator.pageSize,
       pageNumber: this.paginator.pageIndex,
-      client: this.client
+      client: this.client,
+      username: this.authService.getUsername(),
+      orderStatus: this.orderStatus
     })
       .subscribe(it => this.ordersDataSource = it);
   }

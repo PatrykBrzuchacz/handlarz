@@ -51,7 +51,7 @@ export class LoginDialogComponent implements OnInit {
 
   private onSuccess = () => {
     this.toastr.success('Poprawnie zalogowano');
-    this.router.navigateByUrl(this.authService.isAdmin() ? '/admin-panel/users-management' : '/products');
+    this.router.navigateByUrl(this.authService.isAdmin() ? '/admin-panel/users-management' : '/orders');
     this.dialogRef.close();
   };
 

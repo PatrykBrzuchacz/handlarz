@@ -57,6 +57,8 @@ public class OrderService {
             order.setWzCreatedDate(LocalDateTime.now());
             order.setWzNumber(order.getOrderNumber().replace("Z", "WZ"));
             order.setInvoice(invoiceService.createInvoiceFromOrder(order));
+        } else {
+            order.getProductOrders().forEach(it -> it.getProduct().setAmount(it.getProduct().getAmount() + it.getAmount()));
         }
 
         return assembler.map(order);

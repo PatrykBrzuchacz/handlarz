@@ -2,17 +2,27 @@
 
   <mat-card>
     <div class="row">
-      <mat-form-field class="col-sm-6">
+      <mat-form-field class="col-sm-4">
         <input matInput type="text" [(ngModel)]="documentNumber" placeholder="Nazwa dokumentu">
       </mat-form-field>
 
-      <mat-form-field class="col-sm-6">
+      <mat-form-field class="col-sm-4">
         <mat-label>Klient</mat-label>
         <mat-select [(ngModel)]="client" [compareWith]="compareByFullName">
           <mat-option></mat-option>
           <mat-option *ngFor="let client of clients" [value]="client">
             {{client.firstName + ' ' + client.lastName}}
           </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="orderStatus">
+          <mat-option></mat-option>
+          <mat-option [value]="OrderStatus.ACCEPTED">Zaakceptowane</mat-option>
+          <mat-option [value]="OrderStatus.PENDING">Oczekujce</mat-option>
+          <mat-option [value]="OrderStatus.CANCELLED">Anulowane</mat-option>
         </mat-select>
       </mat-form-field>
 

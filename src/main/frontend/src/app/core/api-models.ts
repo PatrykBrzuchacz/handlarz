@@ -46,6 +46,7 @@ export interface OrderCriteria extends SearchRequestDto {
   documentNumber?: string;
   orderStatus?: OrderStatus;
   client?: RegularClientDto;
+  username?: string;
 }
 
 export interface OrderDto {

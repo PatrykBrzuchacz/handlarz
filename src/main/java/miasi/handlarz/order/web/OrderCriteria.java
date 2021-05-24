@@ -10,4 +10,5 @@ public class OrderCriteria extends SearchRequestDto {
     private OrderStatus orderStatus;
     private String documentNumber;
     private RegularClientDto client;
+    private String username;
 }

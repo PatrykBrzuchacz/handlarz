@@ -5,6 +5,7 @@ import {ToastrService} from 'ngx-toastr';
 import {WarehouseReleaseModalComponent} from './warehouse-release.modal.component';
 import {OrderService} from '../../../order/order.service';
 import {RegularClientService} from '../../../regular-client/regular-client.service';
+import {AuthService} from '../../../../core/service';
 
 @Component({
   selector: 'app-warehouse-release',
@@ -24,7 +25,8 @@ export class WarehouseReleaseComponent implements OnInit {
   constructor(private orderService: OrderService,
               private dialog: MatDialog,
               private toastrSerivce: ToastrService,
-              private clientService: RegularClientService) {
+              private clientService: RegularClientService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -38,6 +40,7 @@ export class WarehouseReleaseComponent implements OnInit {
     this.orderService.getAll({
       orderStatus: OrderStatus.ACCEPTED,
       client: this.client,
+      username: this.authService.getUsername(),
       documentNumber: this.documentNumber,
       pageSize: this.paginator.pageSize,
       pageNumber: this.paginator.pageIndex,
